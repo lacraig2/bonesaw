@@ -106,7 +106,19 @@
 <body>
 
 <h1>BoneSAW</h1>
-<button id="led0" onClick='button(0)'/>Update List</button>
+
+<table>
+    <tr>
+        <td><button id="led0" onClick='button(0)'/>Update List</button></td>
+        <td>
+            <form id="emit" method="POST" action='#'>
+                <input type="text" name="emit_data" id="emit_data" placeholder="Message">
+                <input type="submit" value="Echo">
+            </form>
+        </td>
+    </tr>
+</table>
+
 
 <div class="row">
   <div class="column" id="log">

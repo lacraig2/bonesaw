@@ -7,6 +7,7 @@ import shodan
 SHODAN_API_KEY = "LImwdILg9P8WtWvfwYMn3X5iyBpKAaRO"
 
 shodanAPI = shodan.Shodan(SHODAN_API_KEY)
+results = []
 
 async_mode = None
 
@@ -62,13 +63,15 @@ def button(num):
             for result in results['matches']:
                 #print('IP: %s' % result['ip_str'])
                 emit('my_iplist',
-                     {'data': 'IP: %s' % result['ip_str'], 'count': session['receive_count']})
+                     {'data': 'IP: %s' % result['ip_str']})
                 # print(result['data'])
                 #print('')
+            emit('my_response',
+                 {'data': 'Update success ', 'count': session['receive_count']})
         except shodan.APIError as e:
             print('Error: %s' % e)
-    emit('my_response',
-         {'data': 'button ', 'count': session['receive_count']})
+            emit('my_response',
+                 {'data': 'Update Error ', 'count': session['receive_count']})
     print("Button")
     print(num)
     # sys.exit()
