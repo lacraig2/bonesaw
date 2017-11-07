@@ -2,6 +2,11 @@
 
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, disconnect
+import shodan
+
+SHODAN_API_KEY = "LImwdILg9P8WtWvfwYMn3X5iyBpKAaRO"
+
+shodanAPI = shodan.Shodan(SHODAN_API_KEY)
 
 async_mode = None
 
@@ -16,7 +21,7 @@ buttons = [UPDATE_LIST]
 
 @app.route('/')
 def SearchPage():
-	return render_template('page.css', async_mode = socketio.async_mode)
+	return render_template('page.html', async_mode = socketio.async_mode)
 
 @socketio.on('my_event')
 def test_message(message):
@@ -46,12 +51,26 @@ def ping_pong():
 @socketio.on('button')
 def button(num):
     session['receive_count'] = session.get('receive_count', 0) + 1
+    if num == 0:
+        try:
+        # Search Shodan
+            results = shodanAPI.search('beaglebone')
+            emit('clear_iplist')
+
+        # Show the results
+            print( 'Results found: %s' % results['total'])
+            for result in results['matches']:
+                #print('IP: %s' % result['ip_str'])
+                emit('my_iplist',
+                     {'data': 'IP: %s' % result['ip_str'], 'count': session['receive_count']})
+                # print(result['data'])
+                #print('')
+        except shodan.APIError as e:
+            print('Error: %s' % e)
     emit('my_response',
          {'data': 'button ', 'count': session['receive_count']})
     print("Button")
     print(num)
-    fd.write(buttons[int(num)])
-    fd.flush()
     # sys.exit()
 
 @socketio.on('connect')

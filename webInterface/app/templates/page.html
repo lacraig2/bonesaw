@@ -33,7 +33,15 @@
             // section of the page.
             socket.on('my_response', function(msg) {
                 $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+            }); 
+            socket.on('my_iplist', function(msg) {
+                $('#iplist').append('<br>' + $('<div/>').text(msg.data).html());
             });
+            socket.on('clear_iplist', function(msg) {
+                $('#iplist').html("");
+                $('#iplist').html("<h2>List of Visible Beaglebone IPs</h2>");
+            });
+            
 
             // Interval function that tests message latency by sending a "ping"
             // message. The server then responds with a "pong" message and the
@@ -77,16 +85,42 @@
             socket.emit('button',  num);
         }
     </script>
+<style type="text/css">
+    h1 {
+        text-align: center;
+    }
+    .column {
+        float: left;
+        width: 33%;
+        height: 3000px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
 </head>
 <body>
 
 <h1>BoneSAW</h1>
-
-<h2>List of Visible Beaglebones</h2>
-
 <button id="led0" onClick='button(0)'/>Update List</button>
 
-<div id="log"></div>
+<div class="row">
+  <div class="column" id="log">
+    <h2>Page Status</h2>
+  </div>
+  <div class="column" id="iplist">
+    <h2>List of Visible Beaglebone IPs</h2>
+  </div>
+  <div class="column" id="moredata">
+    <h2>More Data</h2>
+  </div>
+</div>
+
+<div id="log"></div> 
 
 
 </body>
