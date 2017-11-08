@@ -7,7 +7,6 @@ import shodan
 SHODAN_API_KEY = "LImwdILg9P8WtWvfwYMn3X5iyBpKAaRO"
 
 shodanAPI = shodan.Shodan(SHODAN_API_KEY)
-results = []
 
 async_mode = None
 
@@ -29,6 +28,22 @@ def test_message(message):
     session['receive_count'] = session.get('receive_count', 0) + 1
     emit('my_response',
          {'data': message['data'], 'count': session['receive_count']})
+         
+@socketio.on('more_data')
+def get_ip_data(requested_ip):
+    session['receive_count'] = session.get('receive_count', 0) + 1
+    host = shodanAPI.host(requested_ip['data'])
+    emit('clear_more_data')
+    emit('more_data',
+         {'data': 'Organization: %s' % host.get('org', 'n/a')})
+    emit('more_data',
+         {'data': 'Operating System: %s' % host.get('os', 'n/a')})
+    for item in host['data']:
+        emit('more_data',
+             {'data': 'Port: %s' % item['port']})
+        emit('more_data',
+             {'data': 'Banner: %s' % item['data']})
+      
 
 @socketio.on('my_broadcast_event')
 def test_broadcast_message(message):

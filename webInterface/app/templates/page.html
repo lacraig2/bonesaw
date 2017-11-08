@@ -42,6 +42,14 @@
                 $('#iplist').html("<h2>List of Visible Beaglebone IPs</h2>");
             });
             
+            socket.on("more_data", function(msg) {
+                $('#moredata').append('<br>' + $('<div/>').text(msg.data).html());
+            });
+            
+            socket.on('clear_more_data', function(msg) {
+                $('#moredata').html("");
+                $('#moredata').html("<h2>More Data</h2>");
+            });
 
             // Interval function that tests message latency by sending a "ping"
             // message. The server then responds with a "pong" message and the
@@ -70,7 +78,7 @@
             // These accept data from the user and send it to the server in a
             // variety of ways
             $('form#emit').submit(function(event) {
-                socket.emit('my_event', {data: $('#emit_data').val()});
+                socket.emit('more_data', {data: $('#emit_data').val()});
                 return false;
             });
 
@@ -113,7 +121,7 @@
         <td>
             <form id="emit" method="POST" action='#'>
                 <input type="text" name="emit_data" id="emit_data" placeholder="Message">
-                <input type="submit" value="Echo">
+                <input type="submit" value="Get More Data About IP">
             </form>
         </td>
     </tr>
