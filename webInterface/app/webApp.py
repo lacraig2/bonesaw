@@ -43,6 +43,14 @@ def get_ip_data(requested_ip):
              {'data': 'Port: %s' % item['port']})
         emit('more_data',
              {'data': 'Banner: %s' % item['data']})
+    emit('my_response',
+         {'data':'More data requested for ip: %s' % requested_ip['data'], 'count': session['receive_count']})
+             
+@socketio.on('scan_ip')
+def start_scan(target_ip):
+    session['receive_count'] = session.get('receive_count', 0) + 1
+    emit('my_response',
+         {'data': 'IP scan requested for IP: %s' % target_ip['data'], 'count': session['receive_count']})
       
 
 @socketio.on('my_broadcast_event')

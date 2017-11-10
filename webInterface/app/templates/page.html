@@ -50,6 +50,12 @@
                 $('#moredata').html("");
                 $('#moredata').html("<h2>More Data</h2>");
             });
+            
+            socket.on('clear_scan_data', function(msg) {
+                $('#scanResult').html("");
+                $('#scanResult').html("<h2>Scan Result</h2>");
+            });
+
 
             // Interval function that tests message latency by sending a "ping"
             // message. The server then responds with a "pong" message and the
@@ -81,9 +87,9 @@
                 socket.emit('more_data', {data: $('#emit_data').val()});
                 return false;
             });
-
-            $('form#disconnect').submit(function(event) {
-                socket.emit('disconnect_request');
+            
+            $('form#scan').submit(function(event) {
+                socket.emit('scan_ip', {data: $('#scan_ip').val()});
                 return false;
             });
 
@@ -99,7 +105,7 @@
     }
     .column {
         float: left;
-        width: 33%;
+        width: 25%;
         height: 3000px;
     }
 
@@ -124,6 +130,12 @@
                 <input type="submit" value="Get More Data About IP">
             </form>
         </td>
+        <td>
+            <form id="scan" method="POST" action='#'>
+                <input type="text" name="scan_ip" id="scan_ip" placeholder="Message">
+                <input type="submit" value="Scan IP">
+            </form>
+        </td>
     </tr>
 </table>
 
@@ -137,6 +149,9 @@
   </div>
   <div class="column" id="moredata">
     <h2>More Data</h2>
+  </div>
+  <div class="column" id="scanResult">
+    <h2>Scan Result</h2>
   </div>
 </div>
 
