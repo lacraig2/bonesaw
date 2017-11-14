@@ -62,6 +62,7 @@
             socket.on('clear_scan_data', function(msg) {
                 $('#scanResult').html("");
                 $('#scanResult').html("<h2>Scan Result</h2>");
+                $('#scanResult').css('background','white');
             });
 
 
@@ -114,7 +115,7 @@
     .column {
         float: left;
         width: 25%;
-        height: 3000px;
+        height: 1000px;
     }
 
     /* Clear floats after the columns */
@@ -132,7 +133,7 @@
 </head>
 <body>
 
-<h1>BoneSAW</h1>
+<h1>BoneSAW Interactive Viewer</h1>
 
 <table>
     <tr>

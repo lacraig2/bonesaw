@@ -82,7 +82,6 @@ def button(num):
             emit('clear_iplist')
 
         # Show the results
-            print( 'Results found: %s' % results['total'])
             for result in results['matches']:
                 #print('IP: %s' % result['ip_str'])
                 emit('my_iplist',
@@ -95,8 +94,6 @@ def button(num):
             print('Error: %s' % e)
             emit('my_response',
                  {'data': 'Update Error ', 'count': session['receive_count']})
-    print("Button")
-    print(num)
     # sys.exit()
 
 @socketio.on('connect')
@@ -106,12 +103,6 @@ def test_connect():
     #     thread = socketio.start_background_task(target=background_thread)
     emit('my_response', {'data': 'Connected', 'count': 0})
 
-
-@socketio.on('disconnect')
-def test_disconnect():
-    print('Client disconnected', request.sid)
-    
-    
     
 def scan(ip):
 
@@ -127,67 +118,68 @@ def scan(ip):
     stats = command['scanstats']
     scan_scan = scan['scan']
     if not scan_scan:
-        print("Scan failed. No results returned. Check that host is up.")
+        emit('scan_data',
+             {'data': 'Scan Failed: Check to see if host is up'})
         return
     results = scan_scan[list(scan_scan.keys())[0]] # this is the ip address
     relevant_results = results['tcp'] 		 # these indicate open ports
 
     # Checking SSH
     if 22 in relevant_results:
-        print("Port 22: SSH is open") # notify user
         emit('scan_data',
              {'data': 'Port 22: SSH is open'})
 
     # Checking HTTP Port 80
     if 80 in relevant_results:
-        print("Port 80: http is open")
         emit('scan_data',
              {'data': 'Port 80: http is open'})
 
         #lets check to see if its Bone101
         result = requests.get("http://"+ip, timeout=20)
-        # print('text: ', result.text)
         if "Bone101" in result.text:
-            print("Server running open Bone101.")
             emit('scan_data',
                  {'data': 'Warning: Server running open Bone101'})
             isRed = 1
             
         else:
-            print("Server not running Bone101.")
             emit('scan_data',
                  {'data': 'Server not running Bone101'})
     if 53 in relevant_results:
-        print("Port 53: DNSMASQ is open")
         emit('scan_data',
              {'data': 'Port 53: DNSMASQ is open'})
         if "version" in relevant_results[53]:
-            print(relevant_results[53]["version"])
             version = relevant_results[53]["version"].split(".")
-            maj_version = int(version[0])
-            min_version = int(version[1])
-            if maj_version <=2 and min_version <= 78:
-                print("[DNSMASQ] version is vulnerable")
-                isYellow = 1
+            if len(version) >=2:
+                maj_version = int(version[0])
+                min_version = int(version[1])
+                if maj_version <=2 and min_version <= 78:
+                    emit('scan_data',
+                         {'data': 'Warning: DNSMASQ version is vulnerable'})
+                    isYellow = 1
+                else:
+                    emit('scan_data',
+                         {'data': 'DNSMASQ version is not vulnerable'})
             else:
-                print("[DNSMASQ] version is not vulnerable")
+                emit('scan_data',
+                     {'data': 'DNSMASQ no version information returned'})
         else:
-            print("[DNSMASQ] no version information returned.")
+            emit('scan_data',
+                 {'data': 'DNSMASQ no version information returned'})
             
     if 3000 in relevant_results:
-        print("Port 3000 open")
         emit('scan_data',
              {'data': 'Port 3000: Open'})
         result = requests.get("http://"+ip+":3000",timeout=20)
         if "Cloud9" in result.text:
-            print("Server running Cloud9.")
+            emit('scan_data',
+                 {'data': 'Warning: Server is running Cloud9'})
             isRed = 1
             
         else:
-            print("Server not running Cloud9.")
+            emit('scan_data',
+                 {'data': 'Server is not running Cloud9'})
 
     if 8080 in relevant_results:
-        print("Port 8080: HTTPD running on port 8080")
         emit('scan_data',
              {'data': 'Port 8080: HTTPD running on port 8080'})
         if "version" in relevant_results[8080]:
@@ -196,12 +188,15 @@ def scan(ip):
             mid_version = int(version[1])
             min_version = int(version[2])
             if maj_version <=2 and mid_version <= 4 and min_version <= 25:
-                print("[HTTPD] version is vulnerable")
+                emit('scan_data',
+                     {'data': 'Warning: HTTPD version is vulnerable'})
                 isYellow = 1
             else:
-                print("[HTTPD] version is not vulnerable")
+                emit('scan_data',
+                     {'data': 'HTTPD version is not vulnerable'})
         else:
-            print("[HTTPD] no version information returned.")
+            emit('scan_data',
+                 {'data': 'No HTTPD version information returned'})
             
     if isRed:
         emit('scan_color_update',
@@ -209,6 +204,9 @@ def scan(ip):
     elif isYellow:
         emit('scan_color_update',
              {'data': 'yellow'})
+    else:
+        emit('scan_color_update',
+             {'data': 'green'})
 
 
 if __name__ == '__main__':
