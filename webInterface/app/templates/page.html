@@ -32,14 +32,13 @@
             // to the client. The data is then displayed in the "Received"
             // section of the page.
             socket.on('my_response', function(msg) {
-                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data).html());
+                $('#log').append('<br>' + $('<div/>').text('Received #' + msg.count + ': ' + msg.data + '\n').html());
             }); 
             socket.on('my_iplist', function(msg) {
-                $('#iplist').append('<br>' + $('<div/>').text(msg.data).html());
+                $('#iplist').append('<br>' + $('<div/>').text(msg.data + '\n').html());
             });
             socket.on('clear_iplist', function(msg) {
                 $('#iplist').html("");
-                $('#iplist').html("<h2>List of Visible Beaglebone IPs</h2>");
             });
             
             socket.on("more_data", function(msg) {
@@ -52,7 +51,7 @@
             });
             
             socket.on("scan_data", function(msg) {
-                $('#scanResult').append('<br>' + $('<div/>').text(msg.data).html());
+                $('#scanResult').append('<br>' + $('<div/>').text(msg.data + '\n').html());
             });
             
             socket.on("scan_color_update", function(msg) {
@@ -61,7 +60,7 @@
             
             socket.on('clear_scan_data', function(msg) {
                 $('#scanResult').html("");
-                $('#scanResult').html("<h2>Scan Result</h2>");
+                //$('#scanResult').html("<h2>Scan Result</h2>");
                 $('#scanResult').css('background','white');
             });
 
@@ -109,6 +108,9 @@
         }
     </script>
 <style type="text/css">
+    body {
+        background-color: lightblue;
+    }
     h1 {
         text-align: center;
     }
@@ -155,23 +157,28 @@
 
 
 <div class="row">
-  <div class="column" id="log">
+  <div class="column" id="log_area">
     <h2>Page Status</h2>
+    <textarea name="log" id="log" readonly>
+    </textarea>
   </div>
-  <div class="column" id="iplist">
-    <h2>List of Visible Beaglebone IPs</h2>
+  <div class="column" id="ip_list">
+    <h2>Visible Beaglebone IPs</h2>
+    <textarea name="iplist" id="iplist" readonly>
+    </textarea>
   </div>
   <div class="column" id="moredata">
     <h2>More Data</h2>
     <textarea name="data_area" id="data_area" readonly>
     </textarea>
   </div>
-  <div class="column" id="scanResult">
+  <div class="column" id="scan_result">
     <h2>Scan Result</h2>
+    <textarea name="scanResult" id="scanResult" readonly>
+    </textarea>
   </div>
 </div>
 
-<div id="log"></div> 
 
 
 </body>
