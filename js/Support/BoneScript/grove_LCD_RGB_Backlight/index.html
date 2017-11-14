@@ -1,0 +1,484 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, target-densitydpi=device-dpi">
+  <title>BeagleBoard.org - SeeedStudio Grove LCD RGB Backlight</title>
+  <meta name="keywords" content="Beagle Board, BeagleBoard, beagleboard.org, BeagleBone, BeagleBoard-xM, bealgeboard, open hardware, open source, Linux, computer" />
+  <link href="http://feeds.feedburner.com/BeagleBoard" rel="alternate" title="BeagleBoard.org news feed" type="application/atom+xml" />
+  <link rel="icon" href="/bone101/static/beagle.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/bone101/favicon.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bootstrap/css/bootstrap-theme.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/common.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/login.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/Support/script/beagle.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/github-login.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bonecard.css" />
+
+  <script type="text/javascript">
+      var base_url = '/bone101';
+      function update_ace_editor_id_val() {
+        ace_editor = document.getElementsByClassName('slick-active')[0]
+            .getElementsByClassName('ace_editor')[0];
+        if (typeof ace_editor != 'undefined')
+            ace_editor_id = ace_editor.id;
+        else
+            ace_editor_id = -1;
+    }
+  </script>
+  <script src="/bone101/static/jquery.js"></script>
+  <script src="/bone101/static/js.cookie.js"></script>
+  <script src="/bone101/static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/bone101/static/third_party/OAuth.io/oauth.min.js"></script>
+
+  <script src="/bone101/Support/script/bonescript-demo.js"></script>
+
+
+
+
+</head><body>
+ <a class="github-ribbon" href="https://github.com/beagleboard/bone101"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+ <div class="top">
+  <div class="top-header"><a href="http://beagleboard.org"><img src="/bone101/static/images/beagle_logo_hdr.gif" alt="beagleboard.org" border="0" width="326" height="60" /></a>
+   <div class="social">
+    <span style="padding-left:8px"><a href="http://facebook.com/beagleboard" name="header_facebook_icon"><img src="/bone101/static/images/icon_facebook.png" width="27" height="28" alt="facebook" border="0"/></a></span>
+    <span style="padding-left:8px"><a href="http://twitter.com/beagleboardorg" name="header_twitter_icon"><img src="/bone101/static/images/icon_twitter.png" width="27" height="28" border="0" alt="twitter"/></a></span>
+    <span style="padding-left:8px"><a href="http://www.linkedin.com/groups/BeagleBoardorg-1474607?gid=1474607&mostPopular=&trk=tyah" name="header_linkedin_icon"><img src="/bone101/static/images/icon_linkedin.png" width="27" height="28" border="0" alt="linkedin" /></a></span>
+    <span style="padding-left:8px"><a href="https://www.youtube.com/user/jadonk" name="header_youtube_icon"><img src="/bone101/static/images/youTube-icon.png" width="27" height="28" border="0" alt="YouTube" /></a></span>
+    <span style="padding-left:8px"><a href="http://plus.google.com/+beagleboard" name="header_google+_icon"><img src="/bone101/static/images/icon_google+.png" width="27" height="28" border="0" alt="google+"/></a></span>
+   </div> 
+  </div>
+ </div>
+ <a name="top" id="top"></a>
+ <div id="wrapper" class="container">
+
+  <div id='cssmenu'>
+    <ul class="main-menu">
+      <li class="has-sub"><a class="new-tutorial" href="/bone101/Support/bonecard/create/"><span>New Tutorial</span></a>
+      </li>
+
+      <li class="responsive-menu">
+          <div class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">BeagleBone 101 <span class="caret"></span></a>
+              <div id="dropdown-main-menu" class="dropdown-menu">
+                  <ul class="left-menu">
+                      <strong>Navigation</strong>
+                      <li><a href="/bone101/Support/BoneScript/menu/">Menu contents</a></li>
+                  </ul>
+              </div>
+          </div>
+      </li>
+    </ul>
+    <div class="github-login">
+	<ul class="float-right github-login-ul" style="display: none;">
+	  <li class="has-sub"><a href="#"><span class="username"></span> ⇓</a>
+		  <ul>
+	      <li class="has-sub"><a class="my-tutorials" href="/bone101/Support/bonecard/my_tutorials"><span>My Tutorials</span></a></li>
+	      <li class="has-sub"><a class="github-signout" href="/"><span>Sign out</span></a></li>
+	    </ul>
+	  </li>
+	</ul>
+	<input class="btn1 github-login float-right" type="submit" name="sa" value="Login">
+</div>
+
+  </div>
+  <div id="content">
+   <div id="contentbuffer">
+    <h2>BoneScript</h2>
+<div id='side-menu' class="t3_sidebar">
+    <ul class="left-menu"><strong>Navigation</strong>
+        <li><a href="/bone101/Support/BoneScript/menu/">Menu contents</a></li>
+    </ul>
+</div>
+<div class="t3_content_1"><div id='connect-status'></div><div id="content_child">
+<h1>Demo: SeeedStudio Grove LCD RGB Backlight</h1>
+<p>The <a href="http://www.seeedstudio.com/wiki/Grove_-_LCD_RGB_Backlight"
+class="external">LCD RGB Backlight</a> provides a simple I2C-based character
+LCD with various backlight colors to rapidly display status for your project.
+</p>
+<br>
+
+<h2>Example
+ <button class="dynlink" onclick="demoRun('code')">run</button>
+ <button class="dynlink" onclick="demoRestore('code')">restore</button>
+</h2>
+<pre id="code" class="use-editor" style="height:500px;">
+var b = require('bonescript');
+var status = {};
+
+function mydebug(x) {
+    console.log(x);
+}
+
+exports = (function(){
+    var exports = {};
+    // based on https://github.com/Seeed-Studio/Grove_LCD_RGB_Backlight
+    
+    // Device I2C address
+    var LCD_ADDRESS = 0x7c&gt;&gt;1;
+    var RGB_ADDRESS = 0xc4&gt;&gt;1;
+    
+    // color define 
+    var WHITE = 0;
+    var RED = 1;
+    var GREEN = 2;
+    var BLUE = 3;
+    
+    var REG_RED = 0x04;   // pwm2
+    var REG_GREEN = 0x03; // pwm1
+    var REG_BLUE = 0x02;  // pwm0
+    
+    var REG_MODE1 = 0x00;
+    var REG_MODE2 = 0x01;
+    var REG_OUTPUT = 0x08;
+    
+    // commands
+    var LCD_CLEARDISPLAY = 0x01;
+    var LCD_RETURNHOME = 0x02;
+    var LCD_ENTRYMODESET = 0x04;
+    var LCD_DISPLAYCONTROL = 0x08;
+    var LCD_CURSORSHIFT = 0x10;
+    var LCD_FUNCTIONSET = 0x20;
+    var LCD_SETCGRAMADDR = 0x40;
+    var LCD_SETDDRAMADDR = 0x80;
+    
+    // flags for display entry mode
+    var LCD_ENTRYRIGHT = 0x00;
+    var LCD_ENTRYLEFT = 0x02;
+    var LCD_ENTRYSHIFTINCREMENT = 0x01;
+    var LCD_ENTRYSHIFTDECREMENT = 0x00;
+    
+    // flags for display on/off control
+    var LCD_DISPLAYON = 0x04;
+    var LCD_DISPLAYOFF = 0x00;
+    var LCD_CURSORON = 0x02;
+    var LCD_CURSOROFF = 0x00;
+    var LCD_BLINKON = 0x01;
+    var LCD_BLINKOFF = 0x00;
+    
+    // flags for display/cursor shift
+    var LCD_DISPLAYMOVE = 0x08;
+    var LCD_CURSORMOVE = 0x00;
+    var LCD_MOVERIGHT = 0x04;
+    var LCD_MOVELEFT = 0x00;
+    
+    // flags for function set
+    var LCD_8BITMODE = 0x10;
+    var LCD_4BITMODE = 0x00;
+    var LCD_2LINE = 0x08;
+    var LCD_1LINE = 0x00;
+    var LCD_5x10DOTS = 0x04;
+    var LCD_5x8DOTS = 0x00;
+    
+    var lcd;
+    var rgb;
+    
+    exports.groveLCDOpen = function(port, col, lines, dotsize, callback) {
+        lcd = [port, LCD_ADDRESS];
+        rgb = [port, RGB_ADDRESS];
+        b.i2cOpen(lcd, {}, onLCDOpen);
+        mydebug("Open issued");
+    
+        function onLCDOpen(x) {
+            mydebug(x);
+            status = {
+                'ready': true,
+                port: port,
+                numlines: lines,
+                displayfunction: 0,
+                displaycontrol: 0,
+                displaymode: 0,
+                currline: 0
+            };
+            if(lines &gt; 1) status.displayfunction |= LCD_2LINE;
+            if ((dotsize != 0) &amp;&amp; (lines == 1)) {
+                status.displayfunction |= LCD_5x10DOTS;
+            }
+    
+            b.i2cOpen(rgb, {}, onRGBOpen);
+        }
+    
+        function onRGBOpen(x) {
+            mydebug(x);
+    
+            setTimeout(onWait1, 50);
+        }
+    
+        // Send function set command sequence
+        function onWait1() {
+            exports.groveLCDCommand(LCD_FUNCTIONSET | status.displayfunction, onInit1);
+        }
+    
+        // wait more than 4.1ms
+        function onInit1(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            setTimeout(onWait2, 5);
+        }
+    
+        // second try
+        function onWait2() {
+            exports.groveLCDCommand(LCD_FUNCTIONSET | status.displayfunction, onInit2);
+        }
+    
+        function onInit2(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            setTimeout(onWait3, 1);
+        }
+    
+        // third go
+        function onWait3() {
+            exports.groveLCDCommand(LCD_FUNCTIONSET | status.displayfunction, onInit3);
+        }
+    
+        // finally, set # lines, font size, etc.
+        function onInit3(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            exports.groveLCDCommand(LCD_FUNCTIONSET | status.displayfunction, onInit4);
+        }
+    
+        // turn the display on with no cursor or blinking default
+        function onInit4(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            status.displaycontrol = LCD_DISPLAYON | LCD_CURSOROFF | LCD_BLINKOFF;
+            exports.groveLCDDisplay(onInit5);
+        }
+    
+        // clear it off
+        function onInit5(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            exports.groveLCDClear(onInit6);
+        }
+    
+        // Initialize to default text direction (for romance languages)
+        function onInit6(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            status.displaymode = LCD_ENTRYLEFT | LCD_ENTRYSHIFTDECREMENT;
+            exports.groveLCDCommand(LCD_ENTRYMODESET | status.displaymode, onInit7);
+        }
+    
+        // backlight init
+        function onInit7(x) {if(x.err) mydebug(JSON.stringify(x)); setReg(0, 0, onInit8);}
+        function onInit8(x) {if(x.err) mydebug(JSON.stringify(x)); setReg(1, 0, onInit9);}
+        function onInit9(x) {if(x.err) mydebug(JSON.stringify(x)); setReg(0x08, 0xAA, onInit10); }
+    
+        function onInit10(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            exports.groveLCDSetColorWhite(onDone);
+        }
+    
+        function onDone(x) {
+            if(x.err &amp;&amp; x.err != {}) mydebug(JSON.stringify(x));
+            if(callback) callback(status);
+        }
+    };
+    
+    exports.groveLCDPrint = function(string, callback) {
+        var err;
+        var i2cport = lcd[0]+',0x'+lcd[1].toString(16);
+        if(!status || !status.ready) {
+            return({'error':'Not ready'});
+        }
+        mydebug('LCD print: ' + string);
+        var data = [];
+        for(var i=0; i&lt;string.length; i++) {
+            data[i] = string.charAt(i);
+        }
+        var c = 0;
+        mydebug('i2c write: ' + i2cport + ': 0x40 &lt;- ' + data[c].toString(16));
+        b.i2cWriteBytes(lcd, 0x40, [data[c]], mycallback);
+        c++;
+    
+        function mycallback(x) {
+            var err;
+            if(x.event == 'callback') {
+                if(x.err) {
+                    err = x.err;
+                    mydebug('writeBytes returned: ' + JSON.stringify(x));
+                    if(callback) callback({err:err});
+                }
+                if(c &lt; string.length) {
+                    mydebug('i2c write: ' + i2cport + ': 0x40 &lt;- ' + data[c].toString(16));
+                    b.i2cWriteBytes(lcd, 0x40, [data[c]], mycallback);
+                    c++;
+                } else {
+                    callback();
+                }
+            }
+        }
+    };
+    
+    exports.groveLCDCommand = function(command, callback) {
+        var i2cport = lcd[0]+',0x'+lcd[1].toString(16);
+        mydebug('LCD command: 0x' + command.toString(16));
+        //if(callback) callback();
+        mydebug('i2c write: ' + i2cport + ': 0x80 &lt;- 0x' + command.toString(16));
+        b.i2cWriteBytes(lcd, 0x80, [command], mycallback);
+    
+        function mycallback(x) {
+            mydebug('writeBytes returned: ' + JSON.stringify(x));
+            if(x.event == 'callback') {
+                if(callback) callback(x);
+            }
+        }
+    };
+    
+    exports.groveLCDDisplay = function(callback) {
+        status.displaycontrol |= LCD_DISPLAYON;
+        exports.groveLCDCommand(LCD_DISPLAYCONTROL | status.displaycontrol, callback);
+    };
+    
+    exports.groveLCDNoDisplay = function(callback) {
+        status.displaycontrol &amp;= ~LCD_DISPLAYON;
+        exports.groveLCDCommand(LCD_DISPLAYCONTROL | status.displaycontrol, callback);
+    };
+    
+    exports.groveLCDClear = function(callback) {
+        var mycallback = callback ? onWrite : undefined;
+        // clear display, set cursor position to zero
+        exports.groveLCDCommand(LCD_CLEARDISPLAY, mycallback);
+    
+        function onWrite(x) {
+            if(x.err) {
+                callback(x);
+                return;
+            }
+            // this command takes a long time!
+            setTimeout(onWait, 2);
+        }
+    
+        function onWait() {
+            callback({});
+        }
+    };
+    
+    exports.groveLCDSetColorWhite = function(callback) {
+        exports.groveLCDSetRGB(255, 255, 255, callback);
+    };
+    
+    exports.groveLCDSetRGB = function(r, g, b, callback) {
+        setReg(REG_RED, r, setGreen);
+        function setGreen() {setReg(REG_GREEN, g, setBlue); }
+        function setBlue() {setReg(REG_BLUE, b, callback); }    
+    };
+    
+    function setReg(addr, data, callback) {
+        var err;
+        var i2cport = rgb[0]+',0x'+rgb[1].toString(16);
+        mydebug('i2c write: ' + i2cport + ': ' + addr.toString(16) + ' &lt;- 0x' + data.toString(16));
+        //if(callback) callback();
+        b.i2cWriteBytes(rgb, addr, [data], mycallback);
+    
+        function mycallback(x) {
+            if(x.err) err = x.err;
+            mydebug('writeBytes returned: ' + JSON.stringify(x));
+            if(x.event == 'callback') {
+                if(callback) callback({err:err});
+            }
+        }
+    }
+    
+    return(exports);
+})();
+
+// Start test code
+exports.groveLCDOpen('/dev/i2c-2', 16, 2, 0, onLCDOpen);
+
+function onLCDOpen(x) {
+    console.log(x);
+    exports.groveLCDPrint("Hello, world!", onLCDPrint);
+}
+
+function onLCDPrint(x) {
+    console.log(x);
+}
+
+var colorIndex = 0;
+var colors = [[255,0,0], [0,255,0], [0,0,255]];
+function rotateColor() {
+    var r = colors[colorIndex][0];
+    var g = colors[colorIndex][1];
+    var b = colors[colorIndex][2];
+    exports.groveLCDSetRGB(r, g, b);
+    colorIndex++;
+    if(colorIndex &gt;= 3) colorIndex=0;
+}
+
+setInterval(rotateColor, 2000);
+</pre>
+<div readonly id='console-output' style="height:200px;"></div>
+<br></br>
+<br></br>
+<h2>Build and execute instructions</h2>
+<ul>
+</ul>
+
+<h2>See also</h2>
+<h3>Related functions</h3>
+<ul>
+ <li><a href="/bone101/Support/BoneScript/#require">require</a></li>
+</ul>
+</div>
+<br/>
+</div>
+
+   </div>
+  </div>
+  <script>
+    my_tutorials = localStorage;
+
+    // some work around to have expiry date when saving a tutorial
+    // expires option is in days
+    function save_tutorial (gist_id, tutorial, options) {
+      tutorial.saved_at = new Date().getTime();
+      tutorial.options = options;
+      my_tutorials.setItem(gist_id, JSON.stringify(tutorial));
+    }
+
+    function load_tutorial (gist_id) {
+      time_now = new Date().getTime();
+      tutorial = JSON.parse(my_tutorials.getItem(gist_id));
+      if(tutorial != null && (time_now - tutorial.saved_at < 86400 * tutorial.options.expires)) {
+        return tutorial;
+      } else
+        return null;
+    }
+  </script>
+
+  <script src="/bone101/static/github-login.js"></script>
+
+  <div class="footer">
+   <div class="social">
+    <span style="padding-left:8px"><a href="http://facebook.com/beagleboard" name="header_facebook_icon"><img src="/bone101/static/images/icon_facebook.png" width="27" height="28" alt="facebook" border="0"/></a></span>
+    <span style="padding-left:8px"><a href="http://twitter.com/beagleboardorg" name="header_twitter_icon"><img src="/bone101/static/images/icon_twitter.png" width="27" height="28" border="0" alt="twitter"/></a></span>
+    <span style="padding-left:8px"><a href="http://www.linkedin.com/groups/BeagleBoardorg-1474607?gid=1474607&mostPopular=&trk=tyah" name="header_linkedin_icon"><img src="/bone101/static/images/icon_linkedin.png" width="27" height="28" border="0" alt="linkedin" /></a></span>
+    <span style="padding-left:8px"><a href="https://www.youtube.com/user/jadonk" name="header_youtube_icon"><img src="/bone101/static/images/youTube-icon.png" width="27" height="28" border="0" alt="YouTube" /></a></span>
+    <span style="padding-left:8px"><a href="http://plus.google.com/+beagleboard" name="header_google+_icon"><img src="/bone101/static/images/icon_google+.png" width="27" height="28" border="0" alt="google+"/></a></span>
+   </div>
+   <div id="login"></div>
+   <div id="footer-col1">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/about">About Us</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/support">Support</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/buy">Distributors</a></li>
+    </ul>
+   </div>
+   <div id="footer-col2">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/chat">Live chat</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/discuss">Mailing list</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/project">Projects</a></li>
+    </ul>
+   </div>
+   <div id="footer-col3">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/privacy">Privacy Policy</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/terms">Terms of Use</a></li>
+    </ul>
+   </div>
+   <div id="cc"><a href="http://creativecommons.org/about/license/" target="_blank"><img src="/bone101/static/images/88x31.png" alt="Creative Commons - Conditions - Attribution and Share Alike" border="0" width="88" height="31" /></a><span style="padding-left:8px">Except where otherwise noted, content on this site is licensed under a Creative Commons Attribution-Share Alike 3.0 license </span></div>
+  </div>
+ </div>
+ <div id="fb-root"></div>
+</body></html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, target-densitydpi=device-dpi">
+  <title>BeagleBoard.org - Potentiometer</title>
+  <meta name="keywords" content="Beagle Board, BeagleBoard, beagleboard.org, BeagleBone, BeagleBoard-xM, bealgeboard, open hardware, open source, Linux, computer" />
+  <link href="http://feeds.feedburner.com/BeagleBoard" rel="alternate" title="BeagleBoard.org news feed" type="application/atom+xml" />
+  <link rel="icon" href="/bone101/static/beagle.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/bone101/favicon.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bootstrap/css/bootstrap-theme.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/common.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/login.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/Support/script/beagle.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/github-login.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bonecard.css" />
+
+  <script type="text/javascript">
+      var base_url = '/bone101';
+      function update_ace_editor_id_val() {
+        ace_editor = document.getElementsByClassName('slick-active')[0]
+            .getElementsByClassName('ace_editor')[0];
+        if (typeof ace_editor != 'undefined')
+            ace_editor_id = ace_editor.id;
+        else
+            ace_editor_id = -1;
+    }
+  </script>
+  <script src="/bone101/static/jquery.js"></script>
+  <script src="/bone101/static/js.cookie.js"></script>
+  <script src="/bone101/static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/bone101/static/third_party/OAuth.io/oauth.min.js"></script>
+
+  <script src="/bone101/Support/script/bonescript-demo.js"></script>
+
+
+
+
+</head><body>
+ <a class="github-ribbon" href="https://github.com/beagleboard/bone101"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+ <div class="top">
+  <div class="top-header"><a href="http://beagleboard.org"><img src="/bone101/static/images/beagle_logo_hdr.gif" alt="beagleboard.org" border="0" width="326" height="60" /></a>
+   <div class="social">
+    <span style="padding-left:8px"><a href="http://facebook.com/beagleboard" name="header_facebook_icon"><img src="/bone101/static/images/icon_facebook.png" width="27" height="28" alt="facebook" border="0"/></a></span>
+    <span style="padding-left:8px"><a href="http://twitter.com/beagleboardorg" name="header_twitter_icon"><img src="/bone101/static/images/icon_twitter.png" width="27" height="28" border="0" alt="twitter"/></a></span>
+    <span style="padding-left:8px"><a href="http://www.linkedin.com/groups/BeagleBoardorg-1474607?gid=1474607&mostPopular=&trk=tyah" name="header_linkedin_icon"><img src="/bone101/static/images/icon_linkedin.png" width="27" height="28" border="0" alt="linkedin" /></a></span>
+    <span style="padding-left:8px"><a href="https://www.youtube.com/user/jadonk" name="header_youtube_icon"><img src="/bone101/static/images/youTube-icon.png" width="27" height="28" border="0" alt="YouTube" /></a></span>
+    <span style="padding-left:8px"><a href="http://plus.google.com/+beagleboard" name="header_google+_icon"><img src="/bone101/static/images/icon_google+.png" width="27" height="28" border="0" alt="google+"/></a></span>
+   </div> 
+  </div>
+ </div>
+ <a name="top" id="top"></a>
+ <div id="wrapper" class="container">
+
+  <div id='cssmenu'>
+    <ul class="main-menu">
+      <li class="has-sub"><a class="new-tutorial" href="/bone101/Support/bonecard/create/"><span>New Tutorial</span></a>
+      </li>
+
+      <li class="responsive-menu">
+          <div class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">BeagleBone 101 <span class="caret"></span></a>
+              <div id="dropdown-main-menu" class="dropdown-menu">
+                  <ul class="left-menu">
+                      <strong>Navigation</strong>
+                      <li><a href="/bone101/Support/BoneScript/menu/">Menu contents</a></li>
+                  </ul>
+              </div>
+          </div>
+      </li>
+    </ul>
+    <div class="github-login">
+	<ul class="float-right github-login-ul" style="display: none;">
+	  <li class="has-sub"><a href="#"><span class="username"></span> ⇓</a>
+		  <ul>
+	      <li class="has-sub"><a class="my-tutorials" href="/bone101/Support/bonecard/my_tutorials"><span>My Tutorials</span></a></li>
+	      <li class="has-sub"><a class="github-signout" href="/"><span>Sign out</span></a></li>
+	    </ul>
+	  </li>
+	</ul>
+	<input class="btn1 github-login float-right" type="submit" name="sa" value="Login">
+</div>
+
+  </div>
+  <div id="content">
+   <div id="contentbuffer">
+    <h2>Demos</h2>
+<div id='side-menu' class="t3_sidebar">
+    <ul class="left-menu"><strong>Navigation</strong>
+        <li><a href="/bone101/Support/BoneScript/menu/index.html">Menu contents</a></li>
+    </ul>
+</div>
+
+<div class="t3_content_1"><div id='connect-status'></div><div id="content_child">
+<h1>Demo: Potentiometer</h1>
+<p> A specific voltage can be sent to the ADC1 channel using a potentiometer. Please keep in mind that each one of the ADC pins can only 
+handle <b>1.8V maximum.</b> 
+</p>
+
+
+
+<h2>Example
+ <button class="dynlink" onclick="demoRun('code')">run</button>
+ <button class="dynlink" onclick="demoRestore('code')">restore</button>
+</h2>
+<pre id="code" class="use-editor" style="height:120px;">
+var b = require('bonescript');
+b.analogRead('P9_40', printAIN1);
+
+function printAIN1(x) {
+    console.log('x.value = ' + x.value);
+    console.log('x.err = ' + x.err);
+}                    
+</pre>
+<div readonly id='console-output' style="height:100px;"></div>
+<br></br>
+<img align="right" width="60%" src="http://beagleboard.org/static/uploads/ADC%20Potentiometer_bb.png"/>
+<br></br>
+<h2>Build and execute instructions</h2>
+<ul>
+ <li>Hook up a BeagleBone or BeagleBone Black to the breadboard as shown in the diagram on the right.</li>
+ <li>After clicking 'run', the ADC1 channel will output a reading between 0-1, where 0 is 0V and 1 is 
+ the maximum input voltage (1.8V).</li>
+ <li>Adjust your potentiometer's knob and click run again. The lower the resistance, the higher voltage you will see.</li>
+ <li>Alter the code to look at inputs on other analog input pins. A schematic showing all available ADC channels are listed <a href="http://circuitco.com/support/index.php?title=Cape_Expansion_Headers#Cape_Expansion_Headers">here.</a></li>
+    
+</ul>
+
+<h2>See also</h2>
+<h3>Related functions</h3>
+<ul>
+ <li><a href="/bone101/Support/BoneScript/#require">require</a></li>
+ <li><a href="/bone101/Support/BoneScript/analogRead/">analogRead</a></li>
+</ul>
+</div>
+<div id="list">
+
+</div>
+<br/>
+<div id="createtime">Last updated by cortezjuanjr on Fri Jun 28 2013 16:46:08 GMT-0500 (CDT).</div>
+
+</div>
+
+   </div>
+  </div>
+  <script>
+    my_tutorials = localStorage;
+
+    // some work around to have expiry date when saving a tutorial
+    // expires option is in days
+    function save_tutorial (gist_id, tutorial, options) {
+      tutorial.saved_at = new Date().getTime();
+      tutorial.options = options;
+      my_tutorials.setItem(gist_id, JSON.stringify(tutorial));
+    }
+
+    function load_tutorial (gist_id) {
+      time_now = new Date().getTime();
+      tutorial = JSON.parse(my_tutorials.getItem(gist_id));
+      if(tutorial != null && (time_now - tutorial.saved_at < 86400 * tutorial.options.expires)) {
+        return tutorial;
+      } else
+        return null;
+    }
+  </script>
+
+  <script src="/bone101/static/github-login.js"></script>
+
+  <div class="footer">
+   <div class="social">
+    <span style="padding-left:8px"><a href="http://facebook.com/beagleboard" name="header_facebook_icon"><img src="/bone101/static/images/icon_facebook.png" width="27" height="28" alt="facebook" border="0"/></a></span>
+    <span style="padding-left:8px"><a href="http://twitter.com/beagleboardorg" name="header_twitter_icon"><img src="/bone101/static/images/icon_twitter.png" width="27" height="28" border="0" alt="twitter"/></a></span>
+    <span style="padding-left:8px"><a href="http://www.linkedin.com/groups/BeagleBoardorg-1474607?gid=1474607&mostPopular=&trk=tyah" name="header_linkedin_icon"><img src="/bone101/static/images/icon_linkedin.png" width="27" height="28" border="0" alt="linkedin" /></a></span>
+    <span style="padding-left:8px"><a href="https://www.youtube.com/user/jadonk" name="header_youtube_icon"><img src="/bone101/static/images/youTube-icon.png" width="27" height="28" border="0" alt="YouTube" /></a></span>
+    <span style="padding-left:8px"><a href="http://plus.google.com/+beagleboard" name="header_google+_icon"><img src="/bone101/static/images/icon_google+.png" width="27" height="28" border="0" alt="google+"/></a></span>
+   </div>
+   <div id="login"></div>
+   <div id="footer-col1">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/about">About Us</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/support">Support</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/buy">Distributors</a></li>
+    </ul>
+   </div>
+   <div id="footer-col2">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/chat">Live chat</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/discuss">Mailing list</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/project">Projects</a></li>
+    </ul>
+   </div>
+   <div id="footer-col3">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/privacy">Privacy Policy</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/terms">Terms of Use</a></li>
+    </ul>
+   </div>
+   <div id="cc"><a href="http://creativecommons.org/about/license/" target="_blank"><img src="/bone101/static/images/88x31.png" alt="Creative Commons - Conditions - Attribution and Share Alike" border="0" width="88" height="31" /></a><span style="padding-left:8px">Except where otherwise noted, content on this site is licensed under a Creative Commons Attribution-Share Alike 3.0 license </span></div>
+  </div>
+ </div>
+ <div id="fb-root"></div>
+</body></html>

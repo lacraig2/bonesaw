@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, user-scalable=yes, target-densitydpi=device-dpi">
+  <title>BeagleBoard.org - Sockets Cape</title>
+  <meta name="keywords" content="Beagle Board, BeagleBoard, beagleboard.org, BeagleBone, BeagleBoard-xM, bealgeboard, open hardware, open source, Linux, computer" />
+  <link href="http://feeds.feedburner.com/BeagleBoard" rel="alternate" title="BeagleBoard.org news feed" type="application/atom+xml" />
+  <link rel="icon" href="/bone101/static/beagle.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="/bone101/favicon.ico" type="image/x-icon">
+  
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bootstrap/css/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bootstrap/css/bootstrap-theme.css"/>
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/common.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/login.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/Support/script/beagle.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/github-login.css" />
+  <link rel="stylesheet" type="text/css" media="screen" href="/bone101/static/bonecard.css" />
+
+  <style>
+#code {
+ position: relative;
+ width: 500px;
+ padding-left: 0;
+ border-radius: 4px;
+ border-bottom-right-radius: 0px;
+ border-bottom-left-radius: 0px;
+ margin-bottom: 0px;
+ margin-left: 30px;
+ margin-right: 0px;
+ align: left;
+}
+#console-output {
+ margin-top: 0px;
+ margin-left: 30px;
+ width: 496px;
+ border: 1px solid #cccccc;
+ resize: vertical;
+}
+
+  </style>
+
+  <script type="text/javascript">
+      var base_url = '/bone101';
+      function update_ace_editor_id_val() {
+        ace_editor = document.getElementsByClassName('slick-active')[0]
+            .getElementsByClassName('ace_editor')[0];
+        if (typeof ace_editor != 'undefined')
+            ace_editor_id = ace_editor.id;
+        else
+            ace_editor_id = -1;
+    }
+  </script>
+  <script src="/bone101/static/jquery.js"></script>
+  <script src="/bone101/static/js.cookie.js"></script>
+  <script src="/bone101/static/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/bone101/static/third_party/OAuth.io/oauth.min.js"></script>
+
+  <script src="/bone101/Support/script/bonescript-demo.js"></script>
+
+
+
+
+</head><body>
+ <a class="github-ribbon" href="https://github.com/beagleboard/bone101"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github-camo.global.ssl.fastly.net/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png"></a>
+ <div class="top">
+  <div class="top-header"><a href="http://beagleboard.org"><img src="/bone101/static/images/beagle_logo_hdr.gif" alt="beagleboard.org" border="0" width="326" height="60" /></a>
+   <div class="social">
+    <span style="padding-left:8px"><a href="http://facebook.com/beagleboard" name="header_facebook_icon"><img src="/bone101/static/images/icon_facebook.png" width="27" height="28" alt="facebook" border="0"/></a></span>
+    <span style="padding-left:8px"><a href="http://twitter.com/beagleboardorg" name="header_twitter_icon"><img src="/bone101/static/images/icon_twitter.png" width="27" height="28" border="0" alt="twitter"/></a></span>
+    <span style="padding-left:8px"><a href="http://www.linkedin.com/groups/BeagleBoardorg-1474607?gid=1474607&mostPopular=&trk=tyah" name="header_linkedin_icon"><img src="/bone101/static/images/icon_linkedin.png" width="27" height="28" border="0" alt="linkedin" /></a></span>
+    <span style="padding-left:8px"><a href="https://www.youtube.com/user/jadonk" name="header_youtube_icon"><img src="/bone101/static/images/youTube-icon.png" width="27" height="28" border="0" alt="YouTube" /></a></span>
+    <span style="padding-left:8px"><a href="http://plus.google.com/+beagleboard" name="header_google+_icon"><img src="/bone101/static/images/icon_google+.png" width="27" height="28" border="0" alt="google+"/></a></span>
+   </div> 
+  </div>
+ </div>
+ <a name="top" id="top"></a>
+ <div id="wrapper" class="container">
+
+  <div id='cssmenu'>
+    <ul class="main-menu">
+      <li class="has-sub"><a class="new-tutorial" href="/bone101/Support/bonecard/create/"><span>New Tutorial</span></a>
+      </li>
+
+      <li class="responsive-menu">
+          <div class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">BeagleBone 101 <span class="caret"></span></a>
+              <div id="dropdown-main-menu" class="dropdown-menu">
+                  <ul class="left-menu">
+                      <strong>Navigation</strong>
+                      <li><a href="/bone101/Support/BoneScript/menu/">Menu contents</a></li>
+                  </ul>
+              </div>
+          </div>
+      </li>
+    </ul>
+    <div class="github-login">
+	<ul class="float-right github-login-ul" style="display: none;">
+	  <li class="has-sub"><a href="#"><span class="username"></span> ⇓</a>
+		  <ul>
+	      <li class="has-sub"><a class="my-tutorials" href="/bone101/Support/bonecard/my_tutorials"><span>My Tutorials</span></a></li>
+	      <li class="has-sub"><a class="github-signout" href="/"><span>Sign out</span></a></li>
+	    </ul>
+	  </li>
+	</ul>
+	<input class="btn1 github-login float-right" type="submit" name="sa" value="Login">
+</div>
+
+  </div>
+  <div id="content">
+   <div id="contentbuffer">
+    <script>
+var s = {};
+
+s.sockets = [
+    { types: ['T'], pins: ['3.3V', '5V', 'NC', 'SP', 'SP', 'SP', 'SP', 'NC', 'NC', 'GND'], touch: ['P9_37', 'P9_38', 'P9_39', 'P9_40'] },
+    { types: ['R', 'Y'], pins: ['3.3V', '5V', 'P8_34', 'P8_35', 'P8_33', 'P8_31', 'P8_32', 'P8_27', 'P8_29', 'GND'] },
+    { types: ['G', 'Y'], pins: ['3.3V', '5V', 'P8_42', 'P8_39', 'P8_40', 'P8_37', 'P8_38', 'P8_36', 'P8_26', 'GND'] },
+    { types: ['B', 'Y'], pins: ['3.3V', '5V', 'P8_45', 'P8_46', 'P8_43', 'P8_44', 'P8_41', 'P8_30', 'P8_28', 'GND'] },
+    { types: ['F', 'Y'], pins: ['3.3V', '5V', 'P8_14', 'P8_25', 'P8_24', 'P8_20', 'P8_5', 'P8_6', 'P8_21', 'GND'] },
+    { types: ['P', 'Y'], pins: ['3.3V', '5V', 'P8_10', 'P8_11', 'P8_12', 'P8_15', 'P9_14', 'P9_16', 'P9_42', 'GND'] },
+    { types: ['I', 'Y'], pins: ['3.3V', '5V', 'P8_19', 'P8_22', 'P8_23', 'P8_16', 'P8_18', 'P9_20', 'P9_19', 'GND'] },
+    { types: ['A'], pins: ['3.3V', '5V', 'P9_15', 'P9_23', 'SP', 'P8_3', 'NC', 'NC', 'NC', 'GND'], analog: ['P9_33', 'P9_35', 'P9_36'] },
+    { types: ['U', 'X'], pins: ['3.3V', '5V', 'P8_13', 'P9_13', 'P9_11', 'P9_12', 'NC', 'NC', 'NC', 'GND'] },
+    { types: ['S', 'Y'], pins: ['3.3V', '5V', 'P8_17', 'P8_8', 'P8_9', 'P9_17', 'P9_18', 'P9_21', 'P9_22', 'GND'] },
+    { types: ['Y'], pins: ['3.3V', '5V', 'P9_31', 'P9_29', 'P9_30', 'P9_28', 'P9_27', 'P9_41', 'P9_25', 'GND'] },
+    { types: ['C', 'X'], pins: ['3.3V', '5V', 'P8_4', 'P9_26', 'P9_24', 'P8_7', 'NC', 'NC', 'NC', 'GND'] }
+];
+
+s.pin = function(socketNumber, pinNumber) {
+    if (socketNumber < 1 || socketNumber > s.sockets.length) throw "socketNumber is invalid.";
+    if (pinNumber < 1 || pinNumber > 10) throw "pinNumber is invalid.";
+    return s.sockets[socketNumber - 1].pins[pinNumber - 1];
+};
+
+function ledTest(event) {
+    event.preventDefault();
+    var selected = $('#socketSelect option:selected').attr("value");
+    console.log("Testing LEDs on socket " + selected);
+    var b = require('bonescript');
+    for(var i = 0; i < 7; i++) {
+        var pin = s.pin(selected, i+3);
+        test(i, pin);
+    }
+
+    function test(i, pin) {
+        if((typeof pin == typeof "a") && (pin.charAt(0) == "P")) {
+            console.log("Setting GPIO mode on pin " + pin);
+            b.pinMode(pin, b.OUTPUT, 7, 'disabled', 'fast', setOn);
+        } else {
+            console.log("Skipping LED " + i + " on pin " + pin);
+        }
+
+        function setOn(x) {
+            if(x.err) {
+                console.log("Error enabing GPIO on pin " + pin + ": " + x.err);
+                b.getPinMode(pin, pinError);
+                return;
+            }
+            console.log("Turning on LED " + i + " on pin " + pin);
+            b.digitalWrite(pin, b.HIGH, doDelay);
+        }
+
+        function pinError(mode) {
+            if((typeof mode.mux == typeof 1) && (typeof mode.options == typeof [])) {
+                console.log("Pin " + pin + " in mode " + mode.options[mode.mux]);
+            }
+        }
+
+        function onError(x) {
+            console.log("pinMode for " + pin + ": " + JSON.stringify(x));
+        }
+
+        function doDelay(x) {
+            console.log("Leaving LED " + i + " on for 3 seconds");
+            setTimeout(setOff, 3000);
+        }
+
+        function setOff() {
+            console.log("Turning off LED " + i + " on pin " + pin);
+            b.digitalWrite(pin, b.LOW);
+        }
+    }
+}
+</script>
+<h2>BoneScript</h2>
+<div id='side-menu' class="t3_sidebar">
+ <ul class="left-menu">
+  <strong>Navigation</strong>
+  <li><a href="/bone101/Support/BoneScript/menu/">Menu contents</a></li>
+ </ul>
+</div>
+<div class="t3_content_1"><div id='connect-status'></div><div id="content_child">
+<h1>Sockets Cape</h1>
+<p>It is recommended you update to the latest version of BoneScript
+    for this demo to work. See <a href="https://gist.github.com/jadonk/bc9a814b0f14d21a0dc3">this
+        gist</a> for helpful hints on updating.
+</p>
+<select name="socket" id="socketSelect">
+</select>
+<h2>LED Test</h2>
+<button id="led">RUN</button>
+<div style="clear:both;"></div>
+<br />
+<br />
+<div readonly id='console-output' style='height: 400px;'></div>
+<script>
+for(socket in s.sockets) {
+    var n = parseInt(socket) + 1;
+    $('#socketSelect').append(
+        $('<option>', { value: n })
+            .text("" + n + ": " + s.sockets[socket].types.join(''))
+    ); 
+}
+$("button#led").click(ledTest);
+</script>
+</div></div>
+
+   </div>
+  </div>
+  <script>
+    my_tutorials = localStorage;
+
+    // some work around to have expiry date when saving a tutorial
+    // expires option is in days
+    function save_tutorial (gist_id, tutorial, options) {
+      tutorial.saved_at = new Date().getTime();
+      tutorial.options = options;
+      my_tutorials.setItem(gist_id, JSON.stringify(tutorial));
+    }
+
+    function load_tutorial (gist_id) {
+      time_now = new Date().getTime();
+      tutorial = JSON.parse(my_tutorials.getItem(gist_id));
+      if(tutorial != null && (time_now - tutorial.saved_at < 86400 * tutorial.options.expires)) {
+        return tutorial;
+      } else
+        return null;
+    }
+  </script>
+
+  <script src="/bone101/static/github-login.js"></script>
+
+  <div class="footer">
+   <div class="social">
+    <span style="padding-left:8px"><a href="http://facebook.com/beagleboard" name="header_facebook_icon"><img src="/bone101/static/images/icon_facebook.png" width="27" height="28" alt="facebook" border="0"/></a></span>
+    <span style="padding-left:8px"><a href="http://twitter.com/beagleboardorg" name="header_twitter_icon"><img src="/bone101/static/images/icon_twitter.png" width="27" height="28" border="0" alt="twitter"/></a></span>
+    <span style="padding-left:8px"><a href="http://www.linkedin.com/groups/BeagleBoardorg-1474607?gid=1474607&mostPopular=&trk=tyah" name="header_linkedin_icon"><img src="/bone101/static/images/icon_linkedin.png" width="27" height="28" border="0" alt="linkedin" /></a></span>
+    <span style="padding-left:8px"><a href="https://www.youtube.com/user/jadonk" name="header_youtube_icon"><img src="/bone101/static/images/youTube-icon.png" width="27" height="28" border="0" alt="YouTube" /></a></span>
+    <span style="padding-left:8px"><a href="http://plus.google.com/+beagleboard" name="header_google+_icon"><img src="/bone101/static/images/icon_google+.png" width="27" height="28" border="0" alt="google+"/></a></span>
+   </div>
+   <div id="login"></div>
+   <div id="footer-col1">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/about">About Us</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/support">Support</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/buy">Distributors</a></li>
+    </ul>
+   </div>
+   <div id="footer-col2">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/chat">Live chat</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/discuss">Mailing list</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/project">Projects</a></li>
+    </ul>
+   </div>
+   <div id="footer-col3">
+    <ul>
+     <li><a target="_blank" href="http://beagleboard.org/privacy">Privacy Policy</a></li>
+     <li><a target="_blank" href="http://beagleboard.org/terms">Terms of Use</a></li>
+    </ul>
+   </div>
+   <div id="cc"><a href="http://creativecommons.org/about/license/" target="_blank"><img src="/bone101/static/images/88x31.png" alt="Creative Commons - Conditions - Attribution and Share Alike" border="0" width="88" height="31" /></a><span style="padding-left:8px">Except where otherwise noted, content on this site is licensed under a Creative Commons Attribution-Share Alike 3.0 license </span></div>
+  </div>
+ </div>
+ <div id="fb-root"></div>
+</body></html>

