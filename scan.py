@@ -159,7 +159,7 @@ def scan(ip,args):
 			else:
 				print("[HTTPD] version is not vulnerable")
 		else:
-			print("[DNSMASQ] no version information returned.")
+			print("[HTTPD] no version information returned.")
 
 def main():
 	# parse arguments

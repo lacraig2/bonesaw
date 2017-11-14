@@ -43,12 +43,20 @@
             });
             
             socket.on("more_data", function(msg) {
-                $('#moredata').append('<br>' + $('<div/>').text(msg.data).html());
+                //$('#moredata').append('<br>' + $('<div/>').text(msg.data).html());
+                $('#data_area').append('<br>' + $('<div/>').text(msg.data).html());
             });
             
             socket.on('clear_more_data', function(msg) {
-                $('#moredata').html("");
-                $('#moredata').html("<h2>More Data</h2>");
+                $('#data_area').html("");
+            });
+            
+            socket.on("scan_data", function(msg) {
+                $('#scanResult').append('<br>' + $('<div/>').text(msg.data).html());
+            });
+            
+            socket.on("scan_color_update", function(msg) {
+                $('#scanResult').css('background',msg.data);
             });
             
             socket.on('clear_scan_data', function(msg) {
@@ -115,6 +123,11 @@
         display: table;
         clear: both;
     }
+    textarea {
+        width: 90%;
+        height: 800px;
+        resize: none;
+    }
 </style>
 </head>
 <body>
@@ -149,6 +162,8 @@
   </div>
   <div class="column" id="moredata">
     <h2>More Data</h2>
+    <textarea name="data_area" id="data_area" readonly>
+    </textarea>
   </div>
   <div class="column" id="scanResult">
     <h2>Scan Result</h2>
