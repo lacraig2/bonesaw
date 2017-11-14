@@ -108,12 +108,15 @@ def scan(ip,args):
 		print("Port 53: DNSMASQ is open")
 		if "version" in relevant_results[53]:
 			version = relevant_results[53]["version"].split(".")
-			maj_version = int(version[0])
-			min_version = int(version[1])
-			if maj_version <=2 and min_version <= 78:
-				print("[DNSMASQ] version is vulnerable")
+			if len(version) >=2:
+				maj_version = int(version[0])
+				min_version = int(version[1])
+				if maj_version <=2 and min_version <= 78:
+					print("[DNSMASQ] version is vulnerable")
+				else:
+					print("[DNSMASQ] version is not vulnerable")
 			else:
-				print("[DNSMASQ] version is not vulnerable")
+				print("[DNSMASQ] no version information returned.")
 		else:
 			print("[DNSMASQ] no version information returned.")
 
