@@ -154,15 +154,18 @@ def scan(ip,args):
 		print("Port 8080: HTTPD running on port 8080")
 		if "version" in relevant_results[8080]:
 			version = relevant_results[8080]["version"].split(".")
-			maj_version = int(version[0])
-			mid_version = int(version[1])
-			min_version = int(version[2])
-			if maj_version <=2 and mid_version <= 4 and min_version <= 25:
-				print("[HTTPD] version is vulnerable")
+			if len(version) >=3:
+				maj_version = int(version[0])
+				mid_version = int(version[1])
+				min_version = int(version[2])
+				if maj_version <=2 and mid_version <= 4 and min_version <= 25:
+					print("[HTTPD] version is vulnerable")
+				else:
+					print("[HTTPD] version is not vulnerable")
 			else:
-				print("[HTTPD] version is not vulnerable")
+				print("[HTTPD] no version information returned.")
 		else:
-			print("[DNSMASQ] no version information returned.")
+			print("[HTTPD] no version information returned.")
 
 def main():
 	# parse arguments
